@@ -9,7 +9,7 @@
 #include <stdlib.h>
 
 char* read_from_cli() {
-    char* program = malloc(10000*sizeof(char));
+    char* program = malloc(10000 * sizeof(char));
 
     int i = 0;
     while((program[i++] = getchar()) != 'x');
@@ -19,28 +19,37 @@ char* read_from_cli() {
     return program;
 }
 
-char* read_from_file(char* file_path) {
-    FILE* file = fopen(file_path, "r");
-    if(file == NULL) {
-        printf("File not found: %s\n", file_path);
-        exit(1);
-    }
+char* read_from_file(char* filepath) {
+	FILE* file = fopen(filepath, "rb");
+	if (file == NULL) {
+		printf("Error: Could not open file \"%s\".", filepath);
+		exit(74);
+	}
 
-    fseek(file, 0, SEEK_END);
-    long size = ftell(file);
-    rewind(file);
+	fseek(file, 0L, SEEK_END);
+	size_t fileSize = ftell(file);
+	rewind(file);
 
-    if (size <= 0) return "";
+	char* program = (char*)malloc(fileSize + 1);
+	if (program == NULL) {
+		printf("Error: Not enough memory to read \"%s\".", filepath);
+		exit(74);
+	}
 
-    char* program = malloc(size*sizeof(char));
-    fread(program, sizeof(char), size, file);
-    fclose(file);
+	size_t bytesRead = fread(program, sizeof(char), fileSize, file);
+	if (bytesRead < fileSize) {
+		printf("Error: Could not read the \"%s\".", filepath);
+		exit(74);
+	}
 
-    return program;
+	program[bytesRead] = '\0';
+
+	fclose(file);
+	return program;
 }
 
 char* run(char* program) {
-
+    char* c = malloc(10000 * sizeof(char));
 }
 
 int main(int argc, char** argv) {
