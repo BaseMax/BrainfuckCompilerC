@@ -1,1 +1,6 @@
 *.exe
+
+out.c
+output.c
+temp.c
+tmp.c
