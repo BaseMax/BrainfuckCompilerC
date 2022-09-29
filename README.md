@@ -11,11 +11,9 @@ $ ./bf
 
 ### Brainfuck Compiler
 
-**./bf [file.bf]**
+- **`./bf [file.bf]`**
 
-**./bf**
-
-After running the program, the program will wait for you to type your BF program, finally you can easily type `x` character to stop and generate C-code.
+- **`./bf`** After running the program, the program will wait for you to type your BF program, finally you can easily type `x` character to stop and generate C-code.
 
 ## BF Programs
 
