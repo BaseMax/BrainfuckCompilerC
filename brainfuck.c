@@ -45,21 +45,22 @@ char* run(char* program) {
 
 int main(int argc, char** argv) {
     char* c = NULL;
+    char* program = NULL;
 
     if (argc > 2) {
         printf("Error: ./%s [file.bf]\n", argv[0]);
         return 1;
     } else if (argc == 1) {
-        char* program = read_from_cli();
-        c = run(program);
-        free(program);
+        program = read_from_cli();
     } else {
-        char* program = read_from_file(argv[1]);
-        c = run(program);
-        free(program);
+        program = read_from_file(argv[1]);
     }
 
-    if (c != NULL) {
+    if (program != NULL) {
+        printf("%s\n===========\n", program);
+        c = run(program);
+        free(program);
+
         printf("%s", c);
 
         FILE* file = fopen("out.c", "w");
